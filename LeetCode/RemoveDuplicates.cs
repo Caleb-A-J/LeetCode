@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace LeetCode
 {
     public class NoMoreDupes
-    { 
+    {
         public int RemoveDuplicates(int[] nums)
         {
             if (nums.Length == 0)
