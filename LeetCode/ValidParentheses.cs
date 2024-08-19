@@ -10,35 +10,41 @@ namespace LeetCode
     {
         public bool IsValid(string s)
         {
-            // Create a stack to store opening brackets
+            // Create a stack to store opening parentheses
             Stack<char> stack = new Stack<char>();
 
-            // Iterate through each character in the string
             foreach (char c in s)
             {
-                // If it's an opening bracket, push it onto the stack
+                // Check if the current character is an opening parenthesis
                 if (c == '(' || c == '{' || c == '[')
                 {
+                    // Push the opening parenthesis onto the stack
                     stack.Push(c);
                 }
-                // If it's a closing bracket, check if the stack is empty
-                // or if the top element doesn't match the corresponding opening bracket
-                else if (stack.Count == 0 || !IsMatchingPair(stack.Pop(), c))
+                else
                 {
-                    return false;
+                    // Check if the current character is a closing parenthesis
+                    // and if the stack is empty
+                    if (stack.Count == 0)
+                    {
+                        // If the stack is empty, there's no corresponding opening parenthesis
+                        return false;
+                    }
+
+                    // Pop the top element of the stack to check if it matches the closing parenthesis
+                    char top = stack.Pop();
+                    if ((top == '(' && c != ')') ||
+                        (top == '{' && c != '}') ||
+                        (top == '[' && c != ']'))
+                    {
+                        // If the top element doesn't match the closing parenthesis, the parentheses are not balanced
+                        return false;
+                    }
                 }
             }
 
-            // If the stack is empty at the end, the string is valid
+            // If the stack is empty at the end, all parentheses are balanced
             return stack.Count == 0;
-        }
-
-        static bool IsMatchingPair(char opening, char closing)
-        {
-            // Check if the opening and closing brackets match
-            return (opening == '(' && closing == ')') ||
-                   (opening == '{' && closing == '}') ||
-                   (opening == '[' && closing == ']');
         }
     }
 }
